@@ -1,17 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <my-tamagotchi :tamagotchi="tamagotchiData" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyTamagotchi from './components/MyTamagotchi.vue'; // Ensure this path matches the actual file location
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MyTamagotchi // Registering the MyTamagotchi component
+  },
+  data() {
+    return {
+      tamagotchiData: { // Renamed for clarity
+        satiety: 100,
+        stamina: 100,
+        fun: 100
+        // You can add more properties here as needed
+      }
+    };
   }
-}
+};
 </script>
 
 <style>
@@ -24,3 +35,4 @@ export default {
   margin-top: 60px;
 }
 </style>
+
