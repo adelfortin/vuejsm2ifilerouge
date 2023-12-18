@@ -2,13 +2,15 @@
   <div class="tamagotchi-container">
     <h1>Mon Tamagotchi</h1>
     <ul class="stats">
+      <!-- Boucle sur les différentes statistiques du Tamagotchi -->
       <li v-for="(value, key) in tamagotchi" :key="key">
         {{ key.charAt(0).toUpperCase() + key.slice(1) }}: {{ value }}
-        <button v-if="key === 'Satiété'" @click="emitActionEvent('Satiété', 10)">Manger</button>
-        <button v-if="key === 'Endurance'" @click="emitActionEvent('Endurance', 10)">Repos</button>
-        <button v-if="key === 'Distraction'" @click="emitActionEvent('Distraction', 10)">Jouer</button>
-        <button v-if="key === 'Propreté'" @click="emitActionEvent('Propreté', 10)">Laver</button>
-        <button v-if="key === 'Intelligence'" @click="emitActionEvent('Intelligence', 10)">Éduquer</button>
+        <!-- Boutons pour modifier les statistiques -->
+        <button v-if="key === 'satiete'" @click="emitActionEvent('satiete', 10)">Manger</button>
+        <button v-if="key === 'endurance'" @click="emitActionEvent('endurance', 10)">Repos</button>
+        <button v-if="key === 'distraction'" @click="emitActionEvent('distraction', 10)">Jouer</button>
+        <button v-if="key === 'proprete'" @click="emitActionEvent('proprete', 10)">Laver</button>
+        <button v-if="key === 'intelligence'" @click="emitActionEvent('intelligence', 10)">Éduquer</button>
       </li>
     </ul>
   </div>
@@ -18,19 +20,23 @@
 export default {
   name: 'MyTamagotchi',
   props: {
+    // Propriété pour recevoir les données du Tamagotchi
     tamagotchi: {
       type: Object,
       required: true
     }
   },
   methods: {
+    // Méthode pour émettre un événement lorsqu'une action est effectuée
     emitActionEvent(stat, amount) {
-      this.$emit('editStat', { stat, amount });
+      this.$emit('edit-stat', { stat, amount });
     }
   }
 };
 </script>
+
 <style scoped>
+/* Styles CSS pour le composant MyTamagotchi */
 .tamagotchi-container {
   text-align: center;
   margin: 20px auto;
