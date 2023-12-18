@@ -1,26 +1,68 @@
 <template>
   <div id="app">
-    <my-tamagotchi :tamagotchi="tamagotchiData" />
+    <my-tamagotchi :tamagotchi="tamagotchiData" @editStat="editStat" />
   </div>
 </template>
 
 <script>
-import MyTamagotchi from './components/MyTamagotchi.vue'; // Ensure this path matches the actual file location
+import MyTamagotchi from './components/MyTamagotchi.vue';
 
 export default {
   name: 'App',
   components: {
-    MyTamagotchi // Registering the MyTamagotchi component
+    MyTamagotchi
   },
   data() {
     return {
-      tamagotchiData: { // Renamed for clarity
-        satiety: 100,
-        stamina: 100,
-        fun: 100
-        // You can add more properties here as needed
+      tamagotchiData: {
+        Satiété: 100,
+        Endurance: 100,
+        Distraction: 100,
+        Propreté: 100,
+        Intelligence: 100,
       }
     };
+  },
+  mounted() {
+    setInterval(() => {
+      if (this.tamagotchiData.Satiété > 0) {
+        this.tamagotchiData.Satiété -= 1;
+      }
+    }, 20000);
+
+    setInterval(() => {
+      if (this.tamagotchiData.Endurance > 0) {
+        this.tamagotchiData.Endurance -= 1;
+      }
+    }, 30000);
+
+    setInterval(() => {
+      if (this.tamagotchiData.Distraction > 0) {
+        this.tamagotchiData.Distraction -= 1;
+      }
+    }, 40000);
+
+    setInterval(() => {
+      if (this.tamagotchiData.Propreté > 0) {
+        this.tamagotchiData.Propreté -= 1;
+      }
+    }, 50000);
+
+    setInterval(() => {
+      if (this.tamagotchiData.Intelligence > 0) {
+        this.tamagotchiData.Intelligence -= 1;
+      }
+    }, 60000);
+  },
+  methods: {
+    editStat(data) {
+      const { stat, amount } = data;
+      if (this.tamagotchiData[stat] + amount <= 10000) {
+        this.tamagotchiData[stat] += amount;
+      } else {
+        this.tamagotchiData[stat] = 10000;
+      }
+    }
   }
 };
 </script>
