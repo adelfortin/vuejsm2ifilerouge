@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- Utilisation du composant MyTamagotchi avec passage de données et écoute d'événements -->
-    <my-tamagotchi :tamagotchi="tamagotchiData" @edit-stat="editStat" />
+    <img src="@/assets/logo.png" alt="Logo" />
+    <my-tamagotchi :tamagotchi="tamagotchiData" @edit-stat="handleStatEdit" />
   </div>
 </template>
 
@@ -15,7 +15,6 @@ export default {
   },
   data() {
     return {
-      // Données représentant les différents états du Tamagotchi
       tamagotchiData: {
         satiete: 100,
         endurance: 100,
@@ -23,55 +22,49 @@ export default {
         proprete: 100,
         intelligence: 100,
       },
-      // Tableau pour stocker les identifiants des intervalles
+      lastStatValues: {
+        satiete: 100,
+        endurance: 100,
+        distraction: 100,
+        proprete: 100,
+        intelligence: 100,
+      },
       intervals: []
     };
   },
   mounted() {
-    // Définit des intervalles pour diminuer les états du Tamagotchi
-    // Chaque intervalle a un timing différent
-    this.intervals.push(setInterval(() => {
-      if (this.tamagotchiData.satiete> 0) {
-        this.tamagotchiData.satiete-= 1;
-      }
-    }, 2000));
-
-    this.intervals.push(setInterval(() => {
-      if (this.tamagotchiData.endurance > 0) {
-        this.tamagotchiData.endurance -= 1;
-      }
-    }, 3000));
-
-    this.intervals.push(setInterval(() => {
-      if (this.tamagotchiData.distraction > 0) {
-        this.tamagotchiData.distraction -= 1;
-      }
-    }, 4000));
-
-    this.intervals.push(setInterval(() => {
-      if (this.tamagotchiData.proprete > 0) {
-        this.tamagotchiData.proprete -= 1;
-      }
-    }, 5000));
-
-    this.intervals.push(setInterval(() => {
-      if (this.tamagotchiData.intelligence > 0) {
-        this.tamagotchiData.intelligence -= 1;
-      }
-    }, 6000));
+    this.intervals.push(setInterval(() => this.decreaseStat('satiete'), 2000));
+    this.intervals.push(setInterval(() => this.decreaseStat('endurance'), 3000));
+    this.intervals.push(setInterval(() => this.decreaseStat('distraction'), 4000));
+    this.intervals.push(setInterval(() => this.decreaseStat('proprete'), 5000));
+    this.intervals.push(setInterval(() => this.decreaseStat('intelligence'), 6000));
   },
   unmounted() {
-    // Nettoie les intervalles lors de la destruction du composant
     this.intervals.forEach(clearInterval);
   },
   methods: {
-    // Méthode pour modifier les états du Tamagotchi
-    editStat(data) {
-      const { stat, amount } = data;
-      if (this.tamagotchiData[stat] + amount <= 1000) {
+    decreaseStat(stat) {
+      if (this.tamagotchiData[stat] > 0) {
+        this.tamagotchiData[stat] -= 1;
+      }
+    },
+    handleStatEdit({ stat, amount }) {
+      if (this.tamagotchiData[stat] + amount <= 10000) {
         this.tamagotchiData[stat] += amount;
       } else {
         this.tamagotchiData[stat] = 10000;
+      }
+      this.updateLastStatValues();
+    },
+    updateLastStatValues() {
+      this.lastStatValues = { ...this.tamagotchiData };
+    }
+  },
+  watch: {
+    tamagotchiData: {
+      deep: true,
+      handler() {
+        this.updateLastStatValues();
       }
     }
   }
@@ -79,7 +72,6 @@ export default {
 </script>
 
 <style>
-/* Styles CSS pour l'application */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
