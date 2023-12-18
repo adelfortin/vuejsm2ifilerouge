@@ -24,35 +24,38 @@ export default {
     };
   },
   mounted() {
-    setInterval(() => {
+    this.intervals.push(setInterval(() => {
       if (this.tamagotchiData.Satiété > 0) {
         this.tamagotchiData.Satiété -= 1;
       }
     }, 20000);
 
-    setInterval(() => {
+    this.intervals.push(setInterval(() => {
       if (this.tamagotchiData.Endurance > 0) {
         this.tamagotchiData.Endurance -= 1;
       }
-    }, 30000);
+    }, 30000));
 
-    setInterval(() => {
+    this.intervals.push(setInterval(() => {
       if (this.tamagotchiData.Distraction > 0) {
         this.tamagotchiData.Distraction -= 1;
       }
-    }, 40000);
+    }, 40000));
 
-    setInterval(() => {
+    this.intervals.push(setInterval(() => {
       if (this.tamagotchiData.Propreté > 0) {
         this.tamagotchiData.Propreté -= 1;
       }
-    }, 50000);
+    }, 50000));
 
-    setInterval(() => {
+    this.intervals.push(setInterval(() => {
       if (this.tamagotchiData.Intelligence > 0) {
         this.tamagotchiData.Intelligence -= 1;
       }
-    }, 60000);
+    }, 60000));
+  },
+  unmounted() {
+    this.intervals.forEach(clearInterval);
   },
   methods: {
     editStat(data) {
