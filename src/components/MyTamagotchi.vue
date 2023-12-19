@@ -23,7 +23,6 @@ export default {
   },
   computed: {
     formattedStats() {
-      // Transform the stats object into a format suitable for <transition-group>
       return Object.entries(this.tamagotchi).map(([key, value]) => ({
         name: key,
         value: value
@@ -62,6 +61,5 @@ export default {
   color: #555;
 }
 
-/* Additional styles for specific elements can be added here */
 </style>
 

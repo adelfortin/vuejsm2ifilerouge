@@ -1,6 +1,5 @@
 <template>
   <div class="tamagotchi-actions">
-    <!-- Boutons pour effectuer différentes actions sur le Tamagotchi -->
     <button @click="emitActionEvent('satiete', 10)">Manger</button>
     <button @click="emitActionEvent('endurance', 10)">Repos</button>
     <button @click="emitActionEvent('distraction', 10)">Jouer</button>
@@ -13,7 +12,6 @@
 export default {
   name: 'TamagotchiActions',
   methods: {
-    // Émet un événement personnalisé pour modifier les statistiques du Tamagotchi
     emitActionEvent(stat, amount) {
       this.$emit('edit-stat', { stat, amount });
     }
@@ -22,7 +20,6 @@ export default {
 </script>
 
 <style scoped>
-/* Styles pour les boutons d'action du Tamagotchi */
 .tamagotchi-actions button {
   padding: 8px 15px;
   margin: 0 5px;

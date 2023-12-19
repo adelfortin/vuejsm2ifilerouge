@@ -2,16 +2,19 @@
   <div id="app">
     <img src="@/assets/logo.png" alt="Logo" />
     <my-tamagotchi :tamagotchi="tamagotchiData" @edit-stat="handleStatEdit" />
+    <tamagotchi-infos :stats="tamagotchiStats" />
   </div>
 </template>
 
 <script>
+import TamagotchiInfos from './components/TamagotchiInfos.vue';
 import MyTamagotchi from './components/MyTamagotchi.vue';
 
 export default {
   name: 'App',
   components: {
-    MyTamagotchi
+    MyTamagotchi,
+    TamagotchiInfos,
   },
   data() {
     return {
