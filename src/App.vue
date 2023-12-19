@@ -2,7 +2,7 @@
   <div id="app">
     <img src="@/assets/logo.png" alt="Logo" />
     <my-tamagotchi :tamagotchi="tamagotchiData" @edit-stat="handleStatEdit" />
-    <tamagotchi-infos :stats="tamagotchiStats" />
+    <tamagotchi-infos :tamagotchi-data="tamagotchiData" @closeModal="handleCloseModal" />
   </div>
 </template>
 
@@ -19,18 +19,18 @@ export default {
   data() {
     return {
       tamagotchiData: {
-        satiete: 100,
-        endurance: 100,
-        distraction: 100,
-        proprete: 100,
-        intelligence: 100,
+        satiete: 10,
+        endurance: 10,
+        distraction: 10,
+        proprete: 10,
+        intelligence: 10,
       },
       lastStatValues: {
-        satiete: 100,
-        endurance: 100,
-        distraction: 100,
-        proprete: 100,
-        intelligence: 100,
+        satiete: 10,
+        endurance: 10,
+        distraction: 10,
+        proprete: 10,
+        intelligence: 10,
       },
       intervals: []
     };
@@ -46,6 +46,9 @@ export default {
     this.intervals.forEach(clearInterval);
   },
   methods: {
+     handleCloseModal() {
+      console.log("Modal fermé. faire un restart pour le jeu.");
+    },
     decreaseStat(stat) {
       if (this.tamagotchiData[stat] > 0) {
         this.tamagotchiData[stat] -= 1;

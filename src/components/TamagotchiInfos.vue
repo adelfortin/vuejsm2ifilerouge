@@ -1,22 +1,36 @@
 <template>
-  <div v-if="isGameOver" class="game-over-message">
-    <p>Game Over! All stats are at zero.</p>
+  <div v-if="isGameOver" class="modal-overlay">
+    <div class="modal">
+      <h2>Game Over!</h2>
+      <p>Votre Tamagotchi est mort ! 😢</p>
+      <button @click="closeModal">Close</button>
+    </div>
   </div>
 </template>
-
 <script>
 export default {
   name: 'TamagotchiInfos',
   props: {
-    stats: {
-      type: Array,
+    tamagotchiData: {
+      type: Object,
       required: true,
-      default: () => [] 
+      default: () => ({
+        satiete: 100,
+        endurance: 100,
+        distraction: 100,
+        proprete: 100,
+        intelligence: 100,
+      })
     }
   },
   computed: {
     isGameOver() {
-      return this.stats.length > 0 && this.stats.every(stat => stat.value === 0);
+      return Object.values(this.tamagotchiData).every(value => value === 0);
+    }
+  },
+  methods: {
+    closeModal() {
+      this.$emit('closeModal');
     }
   }
 };
@@ -26,6 +40,25 @@ export default {
 .game-over-message {
   color: red;
   font-weight: bold;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 </style>
 
