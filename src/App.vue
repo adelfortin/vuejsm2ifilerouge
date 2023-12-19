@@ -48,6 +48,16 @@ export default {
   methods: {
      handleCloseModal() {
       console.log("Modal fermé. faire un restart pour le jeu.");
+      this.resetGame();
+    },
+    resetGame() {
+      this.tamagotchiData = {
+        satiete: 10,
+        endurance: 10,
+        distraction: 10,
+        proprete: 10,
+        intelligence: 10,
+      };
     },
     decreaseStat(stat) {
       if (this.tamagotchiData[stat] > 0) {
