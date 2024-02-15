@@ -34,7 +34,6 @@ export default {
             this.triggerAnimation(stat.name, stat.value, isIncreasing);
           }
 
-          // Update lastValues for next comparison
           this.lastValues[stat.name] = stat.value;
         });
       }
@@ -53,7 +52,7 @@ export default {
           this.animatedStats[statName] = {
             value: newValue,
             animation: '',
-            isNeutral: true // Indicate that the stat is now in a neutral state
+            isNeutral: true 
           };
 	}
       }, 500);
@@ -64,7 +63,7 @@ export default {
         'stat-changing': statAnimation?.animation === 'changing',
         'stat-increasing': statAnimation?.isIncreasing,
         'stat-decreasing': !statAnimation?.isIncreasing,
-        'stat-neutral': statAnimation?.isNeutral // Apply neutral class after animation
+        'stat-neutral': statAnimation?.isNeutral 
       };
     }
   }
